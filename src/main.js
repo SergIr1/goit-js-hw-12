@@ -1,3 +1,4 @@
+import axios from "axios";
 import SimpleLightbox from "simplelightbox";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
@@ -8,7 +9,6 @@ import { fetchPhotosByQuery } from "/js/pixabay-api.js";
 
 const searchFormEl = document.querySelector('.js-search-form');
 const galleryEl = document.querySelector(".js-gallery");
-
 
 let gallery = new SimpleLightbox('.js-gallery a', { captionsData: 'alt', captionDelay: 250 });
 
