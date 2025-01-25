@@ -127,5 +127,10 @@ const onLoardMoreBtnClick = async event => {
         gallery.refresh();
     } catch (error) {
         console.log(error);
+    iziToast.error({
+        message: 'Something went wrong while loading more images. Please try again later.',
+        timeout: 3500,
+        position: "topRight",
+    });
     }
 }
