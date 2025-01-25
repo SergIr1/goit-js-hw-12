@@ -31,3 +31,11 @@ export const showLoader = () => {
 export const hideLoader = () => {
     loaderBackdrop.classList.add('is-hidden');
 }
+
+// export const showBtn = () => {
+//     loadMoreBtnEL.classList.remove('is-hidden');
+// };
+
+// export const hideBtn = () => {
+//     loadMoreBtnEL.classList.add('is-hidden');
+// }
