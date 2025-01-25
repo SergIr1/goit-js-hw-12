@@ -101,7 +101,6 @@ const onLoardMoreBtnClick = async event => {
         galleryEl.insertAdjacentHTML('beforeend', galleryTemplate);
 
         const {height: cardHeight} = galleryEl.firstElementChild.getBoundingClientRect();
-        // const x = galleryEl.getBoundingClientRect();
 
         window.scrollBy({
             top: cardHeight * 2,
@@ -110,7 +109,7 @@ const onLoardMoreBtnClick = async event => {
 
         const total = Math.ceil(data.totalHits / 15);
         
-                if (state.page >= total) {
+                if (state.page >= total || data.hits.length < 15) {
             loadMoreBtnEL.classList.add('is-hidden');
 
             loadMoreBtnEL.removeEventListener('click', onLoardMoreBtnClick);
