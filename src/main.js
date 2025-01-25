@@ -1,4 +1,3 @@
-import axios from "axios";
 import SimpleLightbox from "simplelightbox";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
@@ -12,25 +11,25 @@ const galleryEl = document.querySelector(".js-gallery");
 
 let gallery = new SimpleLightbox('.js-gallery a', { captionsData: 'alt', captionDelay: 250 });
 
-const onSearchFormSubmit = event => {
+const onSearchFormSubmit = async event => {
+    try {
     event.preventDefault();
     
     const searchQuery = event.currentTarget.elements.user_query.value.trim();
 
     if (searchQuery === "") {
-            iziToast.warning({
-        message: 'The field is empty! Please enter a search query!',
-        timeout: 2500,
-        position: "topRight",
-        backgroundColor: "#f0ad4e",
-        messageColor: "#ffffff",
-    });
-        return;
-    };
+        return iziToast.warning({
+            message: 'The field is empty! Please enter a search query!',
+            timeout: 2500,
+            position: "topRight",
+            backgroundColor: "#f0ad4e",
+            messageColor: "#ffffff",
+        });
+        };
 
-    showLoader();
-
-        fetchPhotosByQuery(searchQuery).then(data => {
+        showLoader();
+        
+        const {data} = await fetchPhotosByQuery(searchQuery);
 
         if (data.total === 0) {
             iziToast.error({
@@ -60,24 +59,13 @@ const onSearchFormSubmit = event => {
 
         searchFormEl.reset();
 
-        // let gallery = new SimpleLightbox('.js-gallery a', { captionsData: 'alt', captionDelay: 250 });
-
         gallery.refresh();
 
-}).catch(err => {
-    if (err.message === "404") {
-        console.error('Error:', err.message);
-    iziToast.error({
-        message: 'Something went wrong. Please try again later.',
-        timeout: 5000,
-        position: "topRight",
-        backgroundColor: "#ef4040",
-    });
+    } catch (error) {
+        console.log(error);
+    } finally {
+        hideLoader();
     }
-    
-}).finally(() => {
-    hideLoader();
-});
 }
 
 searchFormEl.addEventListener('submit', onSearchFormSubmit);
